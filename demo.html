@@ -10,43 +10,22 @@
   <link rel="stylesheet" href="demo-styles.css">
 
   <style>
+    lazy-image {
+      display: inline-block;
+      padding: 10px;
+    }
     lazy-image.inactive {
-      display: inline-block; /* Ugh */
-      width: 200px;
-      height: 120px;
-      padding: 4px;
-
-      /* Styles for the ::after label */
+      width: 30%;
+      background-color: #F5F5F5;
       text-align: center;
-      position: relative;
-    }
-
-    lazy-image:not([active])::before {
-      position: absolute;
-      top: 40px;
-      left: 20px;
-      content: "Click me!";
-    }
-    lazy-image([active])::before {
-      content: "";
-    }
-
-    /* Fancy styles  for the ::after label */
-    lazy-image.inactive:nth-of-type(1) {
-      background: #29B6F6;
-    }
-    lazy-image.inactive:nth-of-type(2) {
-      background: #FFEE58;
-    }
-    lazy-image.inactive:nth-of-type(3) {
-      background: #9CCC65;
     }
   </style>
 </head>
 <body>
 
-  <h1>lazy-image</h1>
+  <h1>&lt;lazy-image&gt;</h1>
 
+  <h2>📖 Docs</h2>
   <section>
     <code>&lt;lazy-image&gt;</code> is a custom element that contains an image that has the
     option to be loaded only on-demand, for performance reasons. If a <code>&lt;lazy-image&gt;</code>
@@ -63,20 +42,46 @@
     </ul>
   </section>
 
+  <h2>🎬 Demos</h2>
   <section>
-    <p><h4>Demo:</h4> each of these images will only load when clicked. </p>
-    <lazy-image class="inactive" src="https://media.giphy.com/media/3oEjI0Jort6dqkW7Ty/giphy.gif" alt="gif of a dope cat">
-    </lazy-image>
-    <lazy-image class="inactive" src="https://media.giphy.com/media/3oEjI0Jort6dqkW7Ty/giphy.gif" alt="gif of a dope cat"></lazy-image>
-    <lazy-image class="inactive" src="https://media.giphy.com/media/3oEjI0Jort6dqkW7Ty/giphy.gif" alt="gif of a dope cat"></lazy-image>
+    These images will only load when clicked (you can check the network tab in
+    your favourite developer tools to see that there's no initial request for these gifs).
+    This happens because they each have a <code>click</code> event listener, that
+    sets their <code>active</code> attibute to <code>true</code>.<br><br>
+
+    <pre><code>
+  &lt;lazy-image src="..." alt="..." id="i"&lt;/lazy-image&gt;
+
+  i.addEventListener('click', function() {
+    if (!this.active)
+      this.active = true;
+  });
+    </pre></code>
+
+    <lazy-image class="inactive" src="https://unsplash.it/300/200?image=1084" alt="sample 1"></lazy-image>
+    <lazy-image class="inactive" src="https://unsplash.it/300/200?image=1080" alt="sample 2"></lazy-image>
+    <lazy-image class="inactive" src="https://unsplash.it/300/200?image=1059" alt="sample 3"></lazy-image>
+
     <script>
       var images = document.querySelectorAll('lazy-image.inactive');
       images.forEach(function(image) {
         image.addEventListener('click', function() {
-          this.active = true;
+          if (!this.active)
+            this.active = true;
         });
       });
     </script>
   </section>
+
+  <section>
+    If you want an image to always load, you can just set the <code>active</code>
+    property to <code>true</code> by default:<br><br>
+    <pre><code>&lt;lazy-image src="..." alt="..." active&gt;&lt;/lazy-image&gt;</pre></code>
+    <div style="text-align:center">
+      <lazy-image src="https://unsplash.it/300/200?image=1062" alt="random image" active></lazy-image>
+    </div>
+  </section>
+
+  <h2>😘, monica</h2>
 </body>
 </html>

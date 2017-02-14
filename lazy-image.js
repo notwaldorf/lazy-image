@@ -58,10 +58,10 @@ class LazyImage extends HTMLElement {
   _maybeLoadImage() {
     if (this._active) {
       this._img.src = this._src;
-      this._img.style.display = 'block';
+      //this._img.style.display = 'block';
     } else {
       this._img.src = '';
-      this._img.style.display = 'none';
+      //this._img.style.display = 'none';
     }
   }
 
