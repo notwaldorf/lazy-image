@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <title>lazy-image demo</title>
+  <script src="lazy-image.js"></script>
+  <link rel="stylesheet" href="demo-styles.css">
+
+  <style>
+    lazy-image.inactive {
+      display: inline-block; /* Ugh */
+      width: 200px;
+      height: 120px;
+      padding: 4px;
+
+      /* Styles for the ::after label */
+      text-align: center;
+      position: relative;
+    }
+
+    lazy-image:not([active])::before {
+      position: absolute;
+      top: 40px;
+      left: 20px;
+      content: "Click me!";
+    }
+    lazy-image([active])::before {
+      content: "";
+    }
+
+    /* Fancy styles  for the ::after label */
+    lazy-image.inactive:nth-of-type(1) {
+      background: #29B6F6;
+    }
+    lazy-image.inactive:nth-of-type(2) {
+      background: #FFEE58;
+    }
+    lazy-image.inactive:nth-of-type(3) {
+      background: #9CCC65;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>lazy-image</h1>
+
+  <section>
+    <code>&lt;lazy-image&gt;</code> is a custom element that contains an image that has the
+    option to be loaded only on-demand, for performance reasons. If a <code>&lt;lazy-image&gt;</code>
+    is inactive, then its source is not loaded (the XHR won't be made until the
+    <code>active</code> attribute is set on the element).
+  </section>
+
+  <section>
+    <code>&lt;lazy-image&gt;</code> has 3 attributes:
+    <ul>
+      <li><b><code>src</code></b>, the image source (like you would use with a <code>&lt;img&gt;</code>)</li>
+      <li><b><code>alt</code></b>, the alternate text for the image the image source (like you would use with a <code>&lt;img&gt;</code>)</li></li>
+      <li><b><code>active</code></b>, whether the image should be loaded or not</li>
+    </ul>
+  </section>
+
+  <section>
+    <p><h4>Demo:</h4> each of these images will only load when clicked. </p>
+    <lazy-image class="inactive" src="https://media.giphy.com/media/3oEjI0Jort6dqkW7Ty/giphy.gif" alt="gif of a dope cat">
+    </lazy-image>
+    <lazy-image class="inactive" src="https://media.giphy.com/media/3oEjI0Jort6dqkW7Ty/giphy.gif" alt="gif of a dope cat"></lazy-image>
+    <lazy-image class="inactive" src="https://media.giphy.com/media/3oEjI0Jort6dqkW7Ty/giphy.gif" alt="gif of a dope cat"></lazy-image>
+    <script>
+      var images = document.querySelectorAll('lazy-image.inactive');
+      images.forEach(function(image) {
+        image.addEventListener('click', function() {
+          this.active = true;
+        });
+      });
+    </script>
+  </section>
+</body>
+</html>
