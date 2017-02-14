@@ -84,19 +84,14 @@
     </pre></code>
 
     <b>Demo</b><br>
-    <lazy-image class="inactive" src="./images/unsplash-it-1084.jpeg" alt="sample 1"></lazy-image>
-    <lazy-image class="inactive" src="./images/unsplash-it-1080.jpeg" alt="sample 2"></lazy-image>
-    <lazy-image class="inactive" src="./images/unsplash-it-1059.jpeg" alt="sample 3"></lazy-image>
+    <lazy-image class="inactive one" src="./images/unsplash-it-1084.jpeg" alt="sample 1"></lazy-image>
+    <lazy-image class="inactive one" src="./images/unsplash-it-1080.jpeg" alt="sample 2"></lazy-image>
+    <lazy-image class="inactive one" src="./images/unsplash-it-1059.jpeg" alt="sample 3"></lazy-image>
 
-    <script>
-      var images = document.querySelectorAll('lazy-image.inactive');
-      images.forEach(function(image) {
-        image.addEventListener('click', function() {
-          if (!image.active)
-            image.active = true;
-        });
-      });
-    </script>
+    If you want to have some global setting that controlls all <code>&lt;lazy-image&gt;</code>
+    on the page (i.e. activates or deactivates <i>all</i> of them), you can set the
+    <code>window.LazyImageSiteDefaultActive</code> global before loading the
+    <code>lazy-image.js</code> script.
   </section>
 
   <h2>🎬 Intersection Observer</h2>
@@ -132,7 +127,16 @@
   <h2>😘, monica</h2>
 
   <script>
-    (function(){
+  (function(){
+      // Set up the on-demand demo.
+      var images = document.querySelectorAll('lazy-image.inactive.one');
+      images.forEach(function(image) {
+        image.addEventListener('click', function() {
+          if (!image.active)
+            image.active = true;
+        });
+      });
+
       if (!window.IntersectionObserver) {
         return;
       }

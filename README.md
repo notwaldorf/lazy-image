@@ -39,7 +39,7 @@ sets the `<lazy-image>`'s `active` attribute to `true`:
 </script>
 ```
 
-If you want to have some global setting that controlls _all_ `<lazy-images>` on the page (i.e. activates or deactivates _all_ of them), you can set the `window.LazyImageSiteDefaultActive` property before loading the `lazy-image.js` script.
+If you want to have some global setting that controls _all_ `<lazy-images>` on the page (i.e. activates or deactivates _all_ of them), you can set the `window.LazyImageSiteDefaultActive` global before loading the `lazy-image.js` script.
 
 #### Intersection Observer
 Intersection observers let you figure out when an element enters into view.
