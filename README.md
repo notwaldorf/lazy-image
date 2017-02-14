@@ -12,6 +12,13 @@ is inactive, then its source is not loaded (the XHR won't be made until the
 
 ### How to use
 
+You can install the element with `bower` (`npm` support coming soon, hold tight)
+```
+bower install notwaldorf/lazy-image
+```
+
+Then you can drop a `<script src="bower_components/lazy-image.js"></script>` in the page where you want to use it. Custom elements/Shadow DOM are not yet supported in all browsers, so we recommend the [webcomponentsjs](https://github.com/webcomponents/webcomponentsjs/tree/v1) polyfills. In my demo I use the `webcomponents-sd-ce.js` bundle (because I am not using any HTML Imports and I didn't bother with IE11), but for a fancier way to load the polyfills, check the `webcomponents-loader` and their docs.
+
 #### On-demand loading
 
 For a `<lazy-image>` to load, it must have the `active` property set to `true`.
