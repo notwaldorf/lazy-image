@@ -42,21 +42,27 @@
     </ul>
   </section>
 
-  <h2>🎬 Demos</h2>
+  <h2>🎬 On-demand loading</h2>
   <section>
-    These images will only load when clicked (you can check the network tab in
-    your favourite developer tools to see that there's no initial request for these gifs).
+    For on-demand loading, you must set the <code>active</code> attribute to <code>true</code>.
+    In the example below, the images will only load when clicked (you can check the network tab in
+    your favourite developer tools to see that there's no initial request for these files).
     This happens because they each have a <code>click</code> event listener, that
-    sets their <code>active</code> attibute to <code>true</code>.<br><br>
+    sets the <code>&lt;lazy-image&gt;</code>'s <code>active</code> attribute to <code>true</code>:<br><br>
 
+    <b>Code</b>
     <pre><code>
-  &lt;lazy-image src="..." alt="..." id="i"&lt;/lazy-image&gt;
+  &lt;lazy-image src="..." alt="..." id="i"&gt;&lt;/lazy-image&gt;
 
-  i.addEventListener('click', function() {
-    if (!this.active)
-      this.active = true;
+  &lt;script&gt;
+    i.addEventListener('click', function() {
+      if (!this.active)
+        this.active = true;
   });
+  &lt;/script&gt;
     </pre></code>
+
+    <b>Demo</b><br>
 
     <lazy-image class="inactive" src="https://unsplash.it/300/200?image=1084" alt="sample 1"></lazy-image>
     <lazy-image class="inactive" src="https://unsplash.it/300/200?image=1080" alt="sample 2"></lazy-image>
@@ -73,10 +79,15 @@
     </script>
   </section>
 
+  <h2>🎬 Always load</h2>
   <section>
     If you want an image to always load, you can just set the <code>active</code>
     property to <code>true</code> by default:<br><br>
+
+    <b>Code</b><br>
     <pre><code>&lt;lazy-image src="..." alt="..." active&gt;&lt;/lazy-image&gt;</pre></code>
+
+    <b>Demo</b><br>
     <div style="text-align:center">
       <lazy-image src="https://unsplash.it/300/200?image=1062" alt="random image" active></lazy-image>
     </div>
