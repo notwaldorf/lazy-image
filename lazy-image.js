@@ -3,7 +3,6 @@
 * option to be loaded only on-demand, for performance reasons.
 *
 */
-
 class LazyImage extends HTMLElement {
   /**
   * The constructor does work that needs to be executed _exactly_ once, such
@@ -14,13 +13,20 @@ class LazyImage extends HTMLElement {
     super();
 
     // Initialize the properties this element uses.
-    this._active = false;
+    this._active = window.LazyImageSiteDefaultActive || false;
     this._src = null;
     this._alt = null;
 
     // Create an <img> element that will load the image on demand.
     this._img = document.createElement('img');
     this._img.style.width = '100%';
+
+    // Bubble up this load event.
+    this._img.addEventListener('load', function() {
+      var event = new Event('load');
+      event.detail = {originalTarget : this._img};
+      this.dispatchEvent(event);
+    }.bind(this))
 
     // Add the <img> element inside the shadow root.
     const shadow = this.attachShadow({mode: 'open'});

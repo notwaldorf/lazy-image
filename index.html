@@ -9,35 +9,36 @@
   <!-- Some styles to make the demo purty -->
   <link rel="stylesheet" href="demo-styles.css">
 
-  <!-- Load the webcomponentsjs polyfill. This custom loader will
-  conditionally load different polyfill bundles depending on what the
-  browser actually needs, so that your download is tiny! -->
-  <script src="./bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-
-  <script>
-    // When the polyfill has loaded, load the custom element (otherwise
-    // on browsers that don't have CustomElements, this won't do anything good).
-    window.addEventListener('WebComponentsReady', function() {
-      // TODO: remove this when fixed.
-      // Workaround a webcomponentsjs bug where this event is fired twice.
-      if (!window.__alreadyLoadedCustomElement) {
-        window.__alreadyLoadedCustomElement = true;
-        var s = document.createElement('script');
-        s.src = 'lazy-image.js';
-        document.head.appendChild(s);
-      }
-    });
-  </script>
+  <!-- Custom elements + Shady DOM polyfill -->
+  <script src="./bower_components/webcomponentsjs/webcomponents-sd-ce.js"></script>
+  <script src="lazy-image.js"></script>
   <style>
     lazy-image {
       display: inline-block;
       padding: 10px;
-    }
-    lazy-image.inactive {
       width: 30%;
       background-color: #F5F5F5;
       text-align: center;
       cursor: default;
+    }
+    lazy-image[active] {
+      animation: fade-in 2000ms both;
+      background-color: transparent;
+    }
+    @keyframes fade-in {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    #container {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    #container lazy-image {
+      display: block;
+      width: 100%;
+      padding: 10px 0;
     }
   </style>
 </head>
@@ -64,12 +65,12 @@
 
   <h2>🎬 On-demand loading</h2>
   <section>
-    For on-demand loading, you must set the <code>active</code> attribute to <code>true</code>.
+    For an image to load, it must have the <code>active</code> property set to <code>true</code>.
     In the example below, the images will only load when clicked (you can check the network tab in
     your favourite developer tools to see that there's no initial request for these files).
-    This happens because they each have a <code>click</code> event listener, that
-    sets the <code>&lt;lazy-image&gt;</code>'s <code>active</code> attribute to <code>true</code>:<br><br>
-
+    This happens because they each start off with the <code>active</code> property set to <code>false</code>,
+    and have a <code>click</code> event listener, that
+    sets it to <code>true</code>:<br><br>
     <b>Code</b>
     <pre><code>
   &lt;lazy-image src="..." alt="..." id="i"&gt;&lt;/lazy-image&gt;
@@ -83,7 +84,6 @@
     </pre></code>
 
     <b>Demo</b><br>
-
     <lazy-image class="inactive" src="./images/unsplash-it-1084.jpeg" alt="sample 1"></lazy-image>
     <lazy-image class="inactive" src="./images/unsplash-it-1080.jpeg" alt="sample 2"></lazy-image>
     <lazy-image class="inactive" src="./images/unsplash-it-1059.jpeg" alt="sample 3"></lazy-image>
@@ -99,20 +99,77 @@
     </script>
   </section>
 
-  <h2>🎬 Always load</h2>
+  <h2>🎬 Intersection Observer</h2>
   <section>
-    If you want an image to always load, you can just set the <code>active</code>
-    property to <code>true</code> by default:<br><br>
-
+    Intersection observers let you figure out when an element enters into view.
+    Combined with a <code>&lt;lazy-image&gt;</code>, this lets you only load
+    images that are scrolled into view, while leaving images at the bottom
+    of the page that haven't been seen inactive.<br><br>
     <b>Code</b><br>
-    <pre><code>&lt;lazy-image src="..." alt="..." active&gt;&lt;/lazy-image&gt;</pre></code>
+<pre><code>
+  // Create an observer.
+  var observer = new IntersectionObserver(onChange, {
+    threshold: [0.5]  // rootMargin: '50% 0%'
+  });
 
-    <b>Demo</b><br>
-    <div style="text-align:center">
-      <lazy-image src="./images/unsplash-it-1062.jpeg" alt="random image" active></lazy-image>
-    </div>
+  // That observes all the random images we've created.
+  els.forEach(el => observer.observe(el));
+
+  // Whenever we scroll...
+  function onChange(changes) {
+    changes.forEach(change => {
+      var el = change.target;
+      if (!el.active)
+        el.active = true;
+      observer.unobserve(el);  // Don't care anymore.
+    });
+  }
+</pre></code>
+    <b>Demo (only works in Chrome)</b><br>
+    <div id="container"></div>
   </section>
 
   <h2>😘, monica</h2>
+
+  <script>
+    (function(){
+      if (!window.IntersectionObserver) {
+        return;
+      }
+
+      // Generate some random images.
+      var els = [];
+      var container = document.getElementById('container');
+      var count = 20;
+      while (count--) {
+        var el = document.createElement('lazy-image');
+        el.className = 'inactive';
+        var random = Math.floor(Math.random() * 100) + 1;
+        el.src = 'https://unsplash.it/300/100?image=' + random;
+        el.alt = 'random image ' + count;
+        container.appendChild(el);
+        els.push(el);
+      }
+
+      // Create an observer.
+      var observer = new IntersectionObserver(onChange, {
+        threshold: [0.5]  // rootMargin: '50% 0%'
+      });
+
+      // That observes all the random images we've created.
+      els.forEach(el => observer.observe(el));
+
+      // Whenever we scroll...
+      function onChange(changes) {
+        changes.forEach(change => {
+          var el = change.target;
+          if (!el.active)
+            el.active = true;
+          // We already loaded this image, so we don't care about it anymore.
+          observer.unobserve(el);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
