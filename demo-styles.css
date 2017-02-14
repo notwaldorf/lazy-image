@@ -25,11 +25,13 @@ code {
   background-color: #FCE4EC;
   padding: 2px 4px;
   border-radius: 4px;
-  white-space: pre;
+  word-wrap: break-word;
 }
 pre {
   font-size: 0.9em;
   background-color: #F5F5F5;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 pre code {
   color: #283593;
