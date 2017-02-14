@@ -20,5 +20,5 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
   },
   "main": "lazy-image.js",
-  "ignore": ["images/"]
+  "ignore": ["deploy-to-gh-pages.js"]
 }
