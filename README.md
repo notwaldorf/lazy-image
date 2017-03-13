@@ -47,7 +47,7 @@ Combined with a `<lazy-image>`, this lets you only load
 images that are scrolled into view, while leaving images at the bottom
 of the page that haven't been seen inactive.
 
-```
+```js
 // Create an observer.
 var observer = new IntersectionObserver(onChange, {
   threshold: [0.5]  // rootMargin: '50% 0%'
