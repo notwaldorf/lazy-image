@@ -63,7 +63,7 @@
       <li><b><code>active</code></b>, whether the image should be loaded or not</li>
     </ul>
   </section>
-  
+
   <p>(See <a href="https://github.com/notwaldorf/lazy-image">code</a> on GitHub)</a></p>
 
   <h2>🎬 On-demand loading</h2>
@@ -170,10 +170,11 @@
       function onChange(changes) {
         changes.forEach(change => {
           var el = change.target;
-          if (!el.active)
+          if (!el.active && change.isIntersecting) {
             el.active = true;
-          // We already loaded this image, so we don't care about it anymore.
-          observer.unobserve(el);
+            // We already loaded this image, so we don't care about it anymore.
+            observer.unobserve(el);
+          }
         });
       }
     })();
