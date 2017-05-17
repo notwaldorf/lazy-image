@@ -47,12 +47,12 @@
   <h1>&lt;lazy-image&gt;</h1>
 
   <h2>📖 Docs</h2>
-  <p>
   <section>
     <code>&lt;lazy-image&gt;</code> is a custom element that contains an image that has the
     option to be loaded only on-demand, for performance reasons. If a <code>&lt;lazy-image&gt;</code>
     is inactive, then its source is not loaded (the XHR won't be made until the
-    <code>active</code> attribute is set on the element).
+    <code>active</code> attribute is set on the element). See the
+    <a href="https://github.com/notwaldorf/lazy-image">code</a> on GitHub.
   </section>
 
   <section>
@@ -63,8 +63,6 @@
       <li><b><code>active</code></b>, whether the image should be loaded or not</li>
     </ul>
   </section>
-
-  <p>(See <a href="https://github.com/notwaldorf/lazy-image">code</a> on GitHub)</a></p>
 
   <h2>🎬 On-demand loading</h2>
   <section>
@@ -123,7 +121,9 @@
     });
   }
 </pre></code>
-    <b>Demo (only works in Chrome)</b><br>
+    <b>IntersectionObserver demo</b> (only works in Chrome, Edge and FF nightly.
+      👀 <a href="http://caniuse.com/#feat=intersectionobserver">caniuse</a> for
+      updates)<br>
     <div id="container"></div>
   </section>
 
