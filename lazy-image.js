@@ -21,11 +21,11 @@ class LazyImage extends HTMLElement {
     this._img.style.width = '100%';
 
     // Bubble up this load event.
-    this._img.addEventListener('load', function() {
-      var event = new Event('load');
+    this._img.addEventListener('load', () => {
+      var event = new CustomEvent('load');
       event.detail = {originalTarget : this._img};
       this.dispatchEvent(event);
-    }.bind(this))
+    });
 
     // Add the <img> element inside the shadow root.
     const shadow = this.attachShadow({mode: 'open'});
