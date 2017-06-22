@@ -56,11 +56,12 @@
   </section>
 
   <section>
-    <code>&lt;lazy-image&gt;</code> has 3 attributes:
+    <code>&lt;lazy-image&gt;</code> has the following attributes:
     <ul>
-      <li><b><code>src</code></b>, the image source (like you would use with a <code>&lt;img&gt;</code>)</li>
-      <li><b><code>alt</code></b>, the alternate text for the image the image source (like you would use with a <code>&lt;img&gt;</code>)</li></li>
       <li><b><code>active</code></b>, whether the image should be loaded or not</li>
+      <li><b><code>alt</code></b>, the alternate text for the image the image source (like you would use with a <code>&lt;img&gt;</code>)</li></li>
+      <li><b><code>src</code></b>, the image source (like you would use with a <code>&lt;img&gt;</code>)</li>
+      <li><b><code>srcset</code></b>, the image source (like you would use with a <code>&lt;img&gt;</code>)</li>
     </ul>
   </section>
 
@@ -76,6 +77,8 @@
     <pre><code>
   &lt;lazy-image src="..." alt="..." id="i"&gt;&lt;/lazy-image&gt;
 
+  &lt;lazy-image alt="..." srcset="... 1x, ... 2x"&gt;&lt;/lazy-image&gt;
+
   &lt;script&gt;
     i.addEventListener('click', function() {
       if (!this.active)
@@ -84,16 +87,28 @@
   &lt;/script&gt;
     </pre></code>
 
-    <b>Demo</b><br>
+    <b>Demo using src</b><br>
     <lazy-image class="inactive one" src="./images/unsplash-it-1084.jpeg" alt="sample 1"></lazy-image>
     <lazy-image class="inactive one" src="./images/unsplash-it-1080.jpeg" alt="sample 2"></lazy-image>
     <lazy-image class="inactive one" src="./images/unsplash-it-1059.jpeg" alt="sample 3"></lazy-image>
     <br><br>
+    <b>Demo using srcset</b><br>
+    <lazy-image class="inactive one" alt="sample 4"
+        srcset="./images/image-1x.png 1x, ./images/image-2x.png 2x">
+    </lazy-image>
+    <br><br>
+    <b>Note:</b><br>
     If you want to have some global setting that controlls all <code>&lt;lazy-image&gt;</code>
     on the page (i.e. activates or deactivates <i>all</i> of them), you can set the
     <code>window.LazyImageSiteDefaultActive</code> global before loading the
     <code>lazy-image.js</code> script.
   </section>
+
+  <h2>🎬 Using srcset</h2>
+  On regular resolution displays, this will show an image displaying "1x".
+  On displays with 2 device pixels per CSS pixel, the "2x" variant
+  will be displayed.<br><br>
+
 
   <h2>🎬 Intersection Observer</h2>
   <section>
@@ -121,7 +136,7 @@
     });
   }
 </pre></code>
-    <b>IntersectionObserver demo</b> (only works in Chrome, Edge and FF nightly.
+    <b>IntersectionObserver demo</b> (this demo only works in Chrome, Edge and FF nightly.
       👀 <a href="http://caniuse.com/#feat=intersectionobserver">caniuse</a> for
       updates)<br>
     <div id="container"></div>
