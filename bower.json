@@ -17,7 +17,7 @@
     "url": "git://github.com/notwaldorf/lazy-image.git"
   },
   "devDependencies": {
-    "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
   "main": "lazy-image.js",
   "ignore": ["deploy-to-gh-pages.sh"]
