@@ -66,6 +66,5 @@ function onChange(changes) {
   });
 }
 ```
-Intersection observers make me sad because they're awesome but only work in Chrome 💔.
 
 ### 😘, monica
