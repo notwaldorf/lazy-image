@@ -1,0 +1,36 @@
+{
+  "name": "lazy-image",
+  "description": "A custom image element that lets you load resources on demand",
+  "author": [
+    "Monica Dinculescu <noms@google.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web-components",
+    "vanilla",
+    "image",
+    "loading"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/notwaldorf/lazy-image.git"
+  },
+  "devDependencies": {
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "main": "lazy-image.js",
+  "ignore": [
+    "deploy-to-gh-pages.sh"
+  ],
+  "homepage": "https://github.com/notwaldorf/lazy-image",
+  "_release": "f22c74ba9b",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "f22c74ba9bac0423db13e5b7dbcc4a9aa376af6e"
+  },
+  "_source": "https://github.com/notwaldorf/lazy-image.git",
+  "_target": "master",
+  "_originalSource": "notwaldorf/lazy-image",
+  "_direct": true
+}
