@@ -30,13 +30,13 @@ class LazyImage extends HTMLElement {
   }
 
   connectedCallback() {
-    if (this.hasAttribute('shadow')) {
+    if (!this.hasAttribute('shadow')) {
+      this.appendChild(this._img);
+    }
+    else {
       // Add the <img> element inside the shadow root.
       const shadow = this.attachShadow({mode: 'open'});
       shadow.appendChild(this._img);
-    }
-    else {
-      this.appendChild(this._img);
     }
   }
 
