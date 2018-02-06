@@ -30,7 +30,7 @@ class LazyImage extends HTMLElement {
   }
 
   connectedCallback() {
-    if (!this.hasAttribute('shadow')) {
+    if (this.hasAttribute('as-decorator')) {
       this.appendChild(this._img);
     }
     else {
