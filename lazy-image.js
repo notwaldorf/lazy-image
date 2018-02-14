@@ -27,14 +27,17 @@ class LazyImage extends HTMLElement {
       event.detail = {originalTarget : this._img};
       this.dispatchEvent(event);
     }.bind(this))
+  }
 
-    // Add the <img> element inside the shadow root.
-    const shadow = this.attachShadow({mode: 'open'});
-    shadow.appendChild(this._img);
-
-    // Note: If you don't want to use the shadow DOM, you could've done
-    // this instead of the above 2 lines:
-    // this.appendChild(this._img);
+  connectedCallback() {
+    if (this.hasAttribute('as-decorator')) {
+      this.appendChild(this._img);
+    }
+    else {
+      // Add the <img> element inside the shadow root.
+      const shadow = this.attachShadow({mode: 'open'});
+      shadow.appendChild(this._img);
+    }
   }
 
   get active() { return this._active; }
